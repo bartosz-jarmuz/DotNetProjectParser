@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="OtherClass.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="OtherClass.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SomeXmlFile.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
