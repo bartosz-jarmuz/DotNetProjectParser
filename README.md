@@ -1,4 +1,4 @@
-# NetProjectParser
+# DotNetProjectParser
 Simple, version-independent XML-based parser of csproj files
 
 ## Why another CSPROJ parser?
