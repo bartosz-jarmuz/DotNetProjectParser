@@ -39,6 +39,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="InstantiationTests.cs" />
     <Compile Include="NetFrameworkProjectParserTests.cs" />
     <Compile Include="NetCoreProjectParserTests.cs" />
     <Compile Include="TestUtils.cs" />

@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Xml.Linq;
-using DotNetProjectParser.ProjectModel;
 
 namespace DotNetProjectParser.Readers
 {

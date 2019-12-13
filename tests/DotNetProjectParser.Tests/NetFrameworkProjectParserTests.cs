@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using DotNetProjectParser.ProjectModel;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -13,8 +12,7 @@ namespace DotNetProjectParser.Tests
         {
             var fileInfo = TestUtils.GetSampleProject(@"DotNetProjectParser.SampleProjects.NetFramework.Console.csproj");
 
-            var fileFactory = new ProjectFileFactory();
-            var project = fileFactory.GetProject(fileInfo);
+            var project = DotNetProjectParser.ProjectFactory.GetProject(fileInfo);
 
             project.Should().NotBeNull();
             project.ProjectXml.Should().NotBeNull();

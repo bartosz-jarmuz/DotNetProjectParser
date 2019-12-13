@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using DotNetProjectParser.ProjectModel;
 using DotNetProjectParser.Readers;
 
 namespace DotNetProjectParser
@@ -10,25 +9,30 @@ namespace DotNetProjectParser
     /// <summary>
     /// Creates an instance of project object regardless of the framework
     /// </summary>
-    public class ProjectFileFactory : IProjectFileFactory
+    public class ProjectFactory : IProjectFactory
     {
         /// <summary>
         /// Gets an instance 
         /// </summary>
         /// <param name="projectFile"></param>
         /// <returns></returns>
-        public Project GetProject(FileInfo projectFile)
+        Project IProjectFactory.GetProject(FileInfo projectFile)
+        {
+            return GetProject(projectFile);
+        }
+
+        public static Project GetProject(FileInfo projectFile)
         {
             if (projectFile == null) throw new ArgumentNullException(nameof(projectFile));
 
             var projectDocument = LoadDocument(projectFile);
-            
-            IXmlProjectFileReader reader =  this.GetXmlReader(projectDocument);
+
+            IXmlProjectFileReader reader = GetXmlReader(projectDocument);
 
             return reader.ReadFile(projectFile, projectDocument);
         }
 
-        private IXmlProjectFileReader GetXmlReader(XDocument projectDocument)
+        private static IXmlProjectFileReader GetXmlReader(XDocument projectDocument)
         {
             var toolsVersionAttribute = projectDocument.Root?.Attributes().FirstOrDefault(x => x.Name.LocalName == "ToolsVersion");
             var namespaceAttribute = projectDocument.Root?.Attributes().FirstOrDefault(x => x.Name.LocalName == "xmlns");
@@ -55,8 +59,7 @@ namespace DotNetProjectParser
             }
         }
 
-
-        internal static XDocument LoadDocument(FileInfo projectFile)
+        private static XDocument LoadDocument(FileInfo projectFile)
         {
             XDocument xml;
 
@@ -66,12 +69,12 @@ namespace DotNetProjectParser
             }
             catch (Exception ex)
             {
-                throw new ProjectParserException("Failed to load project file as XML", projectFile.FullName, typeof(ProjectFileFactory), ex);
+                throw new ProjectParserException("Failed to load project file as XML", projectFile.FullName, typeof(ProjectFactory), ex);
             }
 
             if (xml.Root == null)
             {
-                throw new ProjectParserException("Empty XML Document!", projectFile.FullName, typeof(ProjectFileFactory));
+                throw new ProjectParserException("Empty XML Document!", projectFile.FullName, typeof(ProjectFactory));
             }
 
             return xml;
