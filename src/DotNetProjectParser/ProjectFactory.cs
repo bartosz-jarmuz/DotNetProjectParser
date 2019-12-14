@@ -12,7 +12,7 @@ namespace DotNetProjectParser
     public class ProjectFactory : IProjectFactory
     {
         /// <summary>
-        /// Gets an instance 
+        /// Gets a new instance based on the provided file, regardless of the target framework it was created in
         /// </summary>
         /// <param name="projectFile"></param>
         /// <returns></returns>
@@ -21,6 +21,11 @@ namespace DotNetProjectParser
             return GetProject(projectFile);
         }
 
+        /// <summary>
+        /// Gets a new instance based on the provided file, regardless of the target framework it was created in
+        /// </summary>
+        /// <param name="projectFile"></param>
+        /// <returns></returns>
         public static Project GetProject(FileInfo projectFile)
         {
             if (projectFile == null) throw new ArgumentNullException(nameof(projectFile));
