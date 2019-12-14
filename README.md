@@ -1,4 +1,4 @@
-# DotNetProjectParser ![Nuget](https://img.shields.io/nuget/dt/DotNetProjectParser)
+# DotNetProjectParser ![Nuget](https://img.shields.io/nuget/dt/DotNetProjectParser?label=Nuget%20Downloads)
 Simple, version-independent XML-based parser of csproj files
 
 ## Why another CSPROJ parser?
