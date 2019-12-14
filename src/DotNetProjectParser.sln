@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.779
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetProjectParser", "DotNetProjectParser\DotNetProjectParser.csproj", "{FC89DDCE-CEC1-4DCD-8204-ADD2C9E535FC}"
 EndProject
@@ -14,6 +14,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetProjectParser.SampleProjects.NetFramework.Console", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetFramework.Console\DotNetProjectParser.SampleProjects.NetFramework.Console.csproj", "{B7F45B2C-AEAE-4271-AE78-FD64D69A294E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetProjectParser.SampleProjects.NetCore.Console", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetCore.Console\DotNetProjectParser.SampleProjects.NetCore.Console.csproj", "{C5B65B2B-8F5A-4916-96AB-115C7B4C47DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_SolutionItems", "{30646974-8C4C-456C-89F5-364197443C5A}"
+	ProjectSection(SolutionItems) = preProject
+		_SolutionItems\DotNetProjectParserKey.snk = _SolutionItems\DotNetProjectParserKey.snk
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
