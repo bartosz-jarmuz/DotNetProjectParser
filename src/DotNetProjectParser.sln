@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_SolutionItems", "{30646974-8C4C-456C-89F5-364197443C5A}"
 	ProjectSection(SolutionItems) = preProject
 		_SolutionItems\DotNetProjectParserKey.snk = _SolutionItems\DotNetProjectParserKey.snk
+		..\_SolutionItems\parserIcon.png = ..\_SolutionItems\parserIcon.png
 	EndProjectSection
 EndProject
 Global

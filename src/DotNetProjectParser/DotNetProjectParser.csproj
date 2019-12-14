@@ -4,6 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../../_SolutionItems/DotNetProjectParserKey.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Bartosz Jarmuż</Authors>
+    <Company>Bartosz Jarmuż</Company>
+    <Description>Simple, framework-version-independent XML-based parser of csproj files. Works with traditional .NET Framework csproj files (old and new) and modern .NET core csproj files</Description>
+    <Copyright>https://github.com/bartosz-jarmuz/DotNetProjectParser</Copyright>
+    <PackageProjectUrl>https://github.com/bartosz-jarmuz/DotNetProjectParser</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/bartosz-jarmuz/DotNetProjectParser</RepositoryUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/bartosz-jarmuz/DotNetProjectParser/master/_SolutionItems/parserIcon.png</PackageIconUrl>
+    <PackageTags>.net dotnet project parser core framework standard xml csproj reader</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
