@@ -13,9 +13,17 @@
     <RepositoryUrl>https://github.com/bartosz-jarmuz/DotNetProjectParser</RepositoryUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/bartosz-jarmuz/DotNetProjectParser/master/_SolutionItems/parserIcon.png</PackageIconUrl>
     <PackageTags>.net dotnet project parser core framework standard xml csproj reader</PackageTags>
+    <Configurations>Debug;Release;TestConfiguration</Configurations>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>C:\Users\bjarmuz\source\repos\DotNetProjectParser\src\DotNetProjectParser\DotNetProjectParser.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <DocumentationFile>C:\Users\bjarmuz\source\repos\DotNetProjectParser\src\DotNetProjectParser\DotNetProjectParser.xml</DocumentationFile>

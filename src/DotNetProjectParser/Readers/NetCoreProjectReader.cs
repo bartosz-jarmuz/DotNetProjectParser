@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace DotNetProjectParser.Readers
 {
     internal class NetCoreProjectReader : IXmlProjectFileReader
     {
-       
+        private XmlNamespaceManager namespaceManager;
+
         private static class XmlNames
         {
             public static string PropertyGroup { get; } = "PropertyGroup";
@@ -23,16 +25,30 @@ namespace DotNetProjectParser.Readers
             public static string CopyToOutputDirectory { get; } = "CopyToOutputDirectory";
         }
 
+        private static class XmlPaths
+        {
+            public static string TreatWarningsAsErrors { get; } = "//x:PropertyGroup/x:TreatWarningsAsErrors";
+            public static string WarningsAsErrors { get; } = "//x:PropertyGroup/x:WarningsAsErrors";
+        }
 
         public Project ReadFile(FileInfo projectFile, XDocument projectXml)
         {
             if (projectFile == null) throw new ArgumentNullException(nameof(projectFile));
             if (projectXml == null) throw new ArgumentNullException(nameof(projectXml));
 
+            this.LoadNamespaceManager(projectXml);
+
             Project project = new Project();
+
             this.LoadProperties(project, projectFile, projectXml);
-            this.LoadItems(project, projectXml);
+            project.Items = this.LoadItems(project, projectXml);
             return project;
+        }
+
+        private void LoadNamespaceManager(XDocument projectXml)
+        {
+            this.namespaceManager = new XmlNamespaceManager(new NameTable());
+            this.namespaceManager.AddNamespace("x", projectXml.Root.GetDefaultNamespace().NamespaceName);
         }
 
         private void LoadProperties(Project project, FileInfo projectFile, XDocument xml)
@@ -43,24 +59,41 @@ namespace DotNetProjectParser.Readers
             project.FullPath = projectFile.FullName;
             project.DirectoryPath = projectFile.Directory?.FullName;
             project.ProjectXml = xml;
+          
 
-
-            XElement propertiesSection = xml.Root.Elements().FirstOrDefault(x =>
-                x.Name.LocalName == XmlNames.PropertyGroup && x.Elements().Any(y => y.Name.LocalName == XmlNames.OutputType));
+         XElement propertiesSection = xml.Root.Elements().FirstOrDefault(x =>
+                x.Name.LocalName == XmlNames.PropertyGroup && x.Elements().Any(y => y.Name.LocalName == XmlNames.TargetFrameworkVersion));
 
             if (propertiesSection != null)
             {
                 project.AssemblyName = propertiesSection.GetByLocalName(XmlNames.AssemblyName)?.Value;
-                if (project.AssemblyName == null)
-                {
-                    project.AssemblyName = Path.GetFileNameWithoutExtension(project.Name);
-                }
                 project.OutputType = propertiesSection.GetByLocalName(XmlNames.OutputType)?.Value;
                 project.TargetFramework = propertiesSection.GetByLocalName(XmlNames.TargetFrameworkVersion)?.Value;
             }
+            if (project.AssemblyName == null)
+            {
+                project.AssemblyName = Path.GetFileNameWithoutExtension(project.Name);
+            }
+
+            if (project.OutputType == null)
+            {
+                project.OutputType = "Library";
+            }
 
             SetExtension(project);
+           // this.SetWarningsAsErrorsProperty(project, xml);
         }
+
+        //private void SetWarningsAsErrorsProperty(Project project, XDocument xml)
+        //{
+        //    //project.TreatWarningsAsErrors = xml.GetValueByXpath<bool>(XmlPaths.TreatWarningsAsErrors, this.namespaceManager);
+        //    //project.WarningsAsErrors = xml.GetValueByXpath(XmlPaths.WarningsAsErrors, this.namespaceManager);
+        //    //if (project.WarningsAsErrors == null)
+        //    //{
+        //    //    project.WarningsAsErrors = "NU1605";//that's a default value of a blank .NET core project (not specified in csproj)
+        //    //}
+        //}
+
 
         private static void SetExtension(Project project)
         {
@@ -71,13 +104,13 @@ namespace DotNetProjectParser.Readers
             }
         }
 
-        private void LoadItems(Project project, XDocument xml)
+        private List<ProjectItem> LoadItems(Project project, XDocument xml)
         {
             Debug.Assert(xml.Root != null, "xml.Root != null");
 
 
             IEnumerable<XElement> itemsSections = xml.Root.Elements().Where(x => x.Name.LocalName == XmlNames.ItemGroup);
-
+            var list = new List<ProjectItem>();
             foreach (XElement itemsSection in itemsSections)
             {
                 foreach (XElement xElement in itemsSection.Elements())
@@ -96,9 +129,11 @@ namespace DotNetProjectParser.Readers
                     ResolveInclude(project, item);
 
                     item.CopyToOutputDirectory = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == XmlNames.CopyToOutputDirectory)?.Value;
-                    project.Items.Add(item);
+                    list.Add(item);
                 }
             }
+
+            return list;
         }
 
         private static void ResolveInclude(Project project, ProjectItem item)

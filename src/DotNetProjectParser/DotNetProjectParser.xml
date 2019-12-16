@@ -35,6 +35,51 @@
             <param name="projectFile"></param>
             <returns></returns>
         </member>
+        <member name="T:DotNetProjectParser.Condition">
+            <summary>
+            The build condition
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.Condition.Expression">
+            <summary>
+            The condition value as string
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.Condition.Configuration">
+            <summary>
+            The configuration
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.Condition.Platform">
+            <summary>
+            The Platform
+            </summary>
+        </member>
+        <member name="T:DotNetProjectParser.Platform">
+            <summary>
+            The platform
+            </summary>
+        </member>
+        <member name="F:DotNetProjectParser.Platform.Unspecified">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:DotNetProjectParser.Platform.AnyCpu">
+            <summary>
+            Any CPU
+            </summary>
+        </member>
+        <member name="F:DotNetProjectParser.Platform.x86">
+            <summary>
+            x86
+            </summary>
+        </member>
+        <member name="F:DotNetProjectParser.Platform.x64">
+            <summary>
+            x64
+            </summary>
+        </member>
         <member name="T:DotNetProjectParser.Project">
             <summary>
             A model of the Project object
@@ -92,6 +137,11 @@
             The items included in the project
             </summary>
         </member>
+        <member name="P:DotNetProjectParser.Project.PropertyGroups">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:DotNetProjectParser.ProjectItem">
             <summary>
             An item of the project
@@ -120,6 +170,91 @@
         <member name="P:DotNetProjectParser.ProjectItem.CopyToOutputDirectory">
             <summary>
             Is the item be copied to output
+            </summary>
+        </member>
+        <member name="T:DotNetProjectParser.PropertyGroup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.Condition">
+            <summary>
+            The build condition
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.AllProperties">
+            <summary>
+            All properties
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.TreatWarningsAsErrors">
+            <summary>
+            Treat All Warnings As Errors
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.WarningsAsErrors">
+            <summary>
+            Specifies which warnings are treated as errors
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.PlatformTarget">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.DebugSymbols">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.Optimize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.AllowUnsafeBlocks">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.DebugType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.OutputPath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.DefineConstants">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.ErrorReport">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.WarningLevel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.LangVersion">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.CodeAnalysisRuleSet">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.PropertyGroup.Prefer32Bit">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:DotNetProjectParser.ProjectParserException">
@@ -171,6 +306,24 @@
             <param name="path"></param>
             <param name="parserType"></param>
             <param name="innerException"></param>
+        </member>
+        <member name="T:DotNetProjectParser.Readers.ConditionParser">
+            <summary>
+            Parses the condition expression
+            </summary>
+        </member>
+        <member name="M:DotNetProjectParser.Readers.ConditionParser.Parse(System.Xml.Linq.XAttribute)">
+            <summary>
+            
+            </summary>
+            <param name="conditionAttribute"></param>
+        </member>
+        <member name="M:DotNetProjectParser.Readers.ConditionParser.ParsePlatform(System.String)">
+            <summary>
+            Parses the platform value
+            </summary>
+            <param name="plaform"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

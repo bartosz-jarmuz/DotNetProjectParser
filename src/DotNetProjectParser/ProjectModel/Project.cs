@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 
@@ -33,7 +34,6 @@ namespace DotNetProjectParser
         /// </summary>
         public XDocument ProjectXml { get; internal set; }
 
-
         /// <summary>
         /// Path of the project folder
         /// </summary>
@@ -53,7 +53,7 @@ namespace DotNetProjectParser
         /// The target framework
         /// </summary>
         public string TargetFramework { get; internal set; }
-        
+
         /// <summary>
         /// The extension of the generated assembly
         /// </summary>
@@ -62,9 +62,12 @@ namespace DotNetProjectParser
         /// <summary>
         /// The items included in the project
         /// </summary>
-        public ICollection<ProjectItem> Items { get; } = new List<ProjectItem>();
+        public IReadOnlyCollection<ProjectItem> Items { get; internal set; } = new List<ProjectItem>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IReadOnlyCollection<PropertyGroup> PropertyGroups { get; internal set; } = new List<PropertyGroup>();
 
     }
-
-
 }

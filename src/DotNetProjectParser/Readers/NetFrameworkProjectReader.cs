@@ -3,36 +3,70 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace DotNetProjectParser.Readers
 {
     internal class NetFrameworkProjectReader : IXmlProjectFileReader
     {
+        private XmlNamespaceManager namespaceManager;
+
         private static class XmlNames
         {
             public static string PropertyGroup { get; }= "PropertyGroup";
+            public static string Condition { get; }= "Condition";
             public static string OutputType { get; }= "OutputType";
             public static string AssemblyName { get; }= "AssemblyName";
             public static string TargetFrameworkVersion { get; }= "TargetFrameworkVersion";
             public static string ItemGroup { get; }= "ItemGroup";
             public static string Include { get; }= "Include";
             public static string CopyToOutputDirectory { get; }= "CopyToOutputDirectory";
+            public const string PlatformTarget = "PlatformTarget";
+            public const string DebugSymbols = "DebugSymbols";
+            public const string Optimize = "Optimize";
+            public const string OutputPath = "OutputPath";
+            public const string DefineConstants = "DefineConstants";
+            public const string ErrorReport = "ErrorReport";
+            public const string WarningLevel = "WarningLevel";
+            public const string AllowUnsafeBlocks = "AllowUnsafeBlocks";
+            public const string Prefer32Bit = "Prefer32Bit";
+            public const string LangVersion = "LangVersion";
+            public const string TreatWarningsAsErrors = "TreatWarningsAsErrors";
+            public const string WarningsAsErrors = "WarningsAsErrors";
+            public const string DebugType = "DebugType";
         }
 
-      
+        private static class XmlPaths
+        {
+            public static string TreatWarningsAsErrors { get; }= "//x:PropertyGroup/x:TreatWarningsAsErrors";
+            public static string WarningsAsErrors { get; }= "//x:PropertyGroup/x:WarningsAsErrors";
+        }
+
+
         public Project ReadFile(FileInfo projectFile, XDocument projectXml)
         {
             if (projectFile == null) throw new ArgumentNullException(nameof(projectFile));
             if (projectXml == null) throw new ArgumentNullException(nameof(projectXml));
 
+            this.LoadNamespaceManager(projectXml);
+
             Project project = new Project();
-            this.LoadProperties(project, projectFile, projectXml);
-            this.LoadItems(project, projectXml);
+            this.LoadStaticProperties(project, projectFile, projectXml);
+            project.PropertyGroups = this.LoadPropertyGroups(projectXml);
+            project.Items = this.LoadItems(project, projectXml);
             return project;
         }
 
-        private void LoadProperties(Project project, FileInfo projectFile, XDocument xml)
+        private void LoadNamespaceManager(XDocument projectXml)
+        {
+            this.namespaceManager = new XmlNamespaceManager(new NameTable());
+            this.namespaceManager.AddNamespace("x", projectXml.Root.GetDefaultNamespace().NamespaceName);
+        }
+
+        private void LoadStaticProperties(Project project, FileInfo projectFile, XDocument xml)
         {
             Debug.Assert(xml.Root != null, "xml.Root != null");
 
@@ -55,6 +89,92 @@ namespace DotNetProjectParser.Readers
             SetExtension(project);
         }
 
+        private List<PropertyGroup> LoadPropertyGroups(XDocument xml)
+        {
+            Debug.Assert(xml.Root != null, "xml.Root != null");
+            var list = new List<PropertyGroup>();
+            foreach (XElement propertiesSection in xml.Root.Elements().Where(x=>x.Name.LocalName == XmlNames.PropertyGroup && x.Attribute(XmlNames.Condition) != null))
+            {
+                var propertyGroup = new PropertyGroup();
+                var conditionAttribute = propertiesSection.Attribute(XmlNames.Condition);
+                if (conditionAttribute != null)
+                {
+                    propertyGroup.Condition = ConditionParser.Parse(conditionAttribute);
+                }
+
+                foreach (XElement property in propertiesSection.Elements())
+                {
+                    UpdateAllPropertiesDictionary(propertyGroup, property);
+                   
+                    switch (property.Name.LocalName)
+                    {
+                        case XmlNames.AllowUnsafeBlocks:
+                            propertyGroup.AllowUnsafeBlocks = property.GetValue<bool>();
+                            break;
+                        case XmlNames.DebugType:
+                            propertyGroup.DebugType = property.Value;
+                            break;
+                        case XmlNames.DebugSymbols:
+                            propertyGroup.DebugSymbols = property.GetValue<bool>();
+                            break;
+                        case XmlNames.DefineConstants:
+                            propertyGroup.DefineConstants =property.Value;
+                            break;
+                        case XmlNames.ErrorReport:
+                            propertyGroup.ErrorReport = property.Value;
+                            break;
+                        case XmlNames.LangVersion:
+                            propertyGroup.LangVersion = property.Value;
+                            break;
+                        case XmlNames.Optimize:
+                            propertyGroup.Optimize = property.GetValue<bool>();
+                            break;
+                        case XmlNames.OutputPath:
+                            propertyGroup.OutputPath = property.Value;
+                            break;
+                        case XmlNames.PlatformTarget:
+                            propertyGroup.PlatformTarget = ConditionParser.ParsePlatform(property.Value);
+                            break;
+                        case XmlNames.Prefer32Bit:
+                            propertyGroup.Prefer32Bit = property.GetValue<bool>();
+                            break;
+                        case XmlNames.TreatWarningsAsErrors:
+                            propertyGroup.TreatWarningsAsErrors = property.GetValue<bool>();
+                            break;
+                        case XmlNames.WarningsAsErrors:
+                            propertyGroup.WarningsAsErrors = property.Value;
+                            break;
+                        case XmlNames.WarningLevel:
+                            propertyGroup.WarningLevel = property.GetValue<int>();
+                            break;
+                    }
+                }
+
+                if (propertyGroup.PlatformTarget == Platform.Unspecified)
+                {
+                    propertyGroup.PlatformTarget = propertyGroup.Condition?.Platform??Platform.Unspecified;
+                }
+             
+                list.Add(propertyGroup);
+            }
+            return list;
+        }
+
+        
+      
+
+        private static void UpdateAllPropertiesDictionary(PropertyGroup propertyGroup, XElement property)
+        {
+            if (!propertyGroup.AllProperties.ContainsKey(property.Name.LocalName))
+            {
+                propertyGroup.AllProperties.Add(property.Name.LocalName, property.Value);
+            }
+        }
+
+
+       
+
+
         private static void SetExtension(Project project)
         {
             project.TargetExtension = ".dll";
@@ -64,13 +184,13 @@ namespace DotNetProjectParser.Readers
             }
         }
 
-        private void LoadItems(Project project,XDocument xml)
+        private List<ProjectItem> LoadItems(Project project,XDocument xml)
         {
             Debug.Assert(xml.Root != null, "xml.Root != null");
 
 
             IEnumerable<XElement> itemsSections = xml.Root.Elements().Where(x => x.Name.LocalName == XmlNames.ItemGroup);
-
+            var list = new List<ProjectItem>();
             foreach (XElement itemsSection in itemsSections)
             {
                 foreach (XElement xElement in itemsSection.Elements())
@@ -88,9 +208,11 @@ namespace DotNetProjectParser.Readers
                     }
 
                     item.CopyToOutputDirectory = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == XmlNames.CopyToOutputDirectory)?.Value;
-                    project.Items.Add(item);
+                    list.Add(item);
                 }
             }
+
+            return list;
         }
     }
 }

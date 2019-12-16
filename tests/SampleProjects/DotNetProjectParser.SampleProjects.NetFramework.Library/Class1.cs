@@ -8,5 +8,9 @@ namespace DotNetProjectParser.SampleProjects.NetFramework.Library
 {
     public class Class1
     {
+        public void DoStuff()
+        {
+
+        }
     }
 }

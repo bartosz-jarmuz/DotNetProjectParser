@@ -7,19 +7,30 @@ namespace DotNetProjectParser.Tests
 {
     public static class TestUtils
     {
-        public static DirectoryInfo GetSolutionDirectory()
+        public static DirectoryInfo GetTestsRoot()
         {
             var dir = new DirectoryInfo(TestContext.CurrentContext.TestDirectory);
-            var slnDir = dir.Parent.Parent.Parent.Parent;
-            ThrowIfNotExists(slnDir.FullName);
-            return slnDir;
+            var testsRoot = GoToParentByName(dir, "tests");
+            ThrowIfNotExists(testsRoot.FullName);
+            return testsRoot;
+        }
+
+        public static DirectoryInfo GoToParentByName(DirectoryInfo start, string parentName)
+        {
+            var parent = start.Parent;
+            while (parent.Name != parentName)
+            {
+                parent = parent.Parent;
+            }
+
+            return parent;
         }
 
         public static FileInfo GetSampleProject(string name)
         {
-            var sln = GetSolutionDirectory();
+            var testRoot = GetTestsRoot();
 
-            var samplesFolder = new DirectoryInfo(Path.Combine(sln.FullName, "tests", "SampleProjects"));
+            var samplesFolder = new DirectoryInfo(Path.Combine(testRoot.FullName, "SampleProjects"));
             ThrowIfNotExists(samplesFolder.FullName);
 
             var projectFile = samplesFolder.EnumerateFiles("*.*", SearchOption.AllDirectories)
