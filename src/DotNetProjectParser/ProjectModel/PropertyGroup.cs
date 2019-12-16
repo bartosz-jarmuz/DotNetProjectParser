@@ -25,7 +25,7 @@ namespace DotNetProjectParser
         /// <summary>
         /// Specifies which warnings are treated as errors
         /// </summary>
-        public string WarningsAsErrors { get; internal set; }
+        public string WarningsAsErrors { get; internal set; } = "";
 
         /// <summary>
         /// 
@@ -51,22 +51,22 @@ namespace DotNetProjectParser
         /// <summary>
         /// 
         /// </summary>
-        public string DebugType { get; internal set; }
-        
+        public string DebugType { get; internal set; } = "";
+
         /// <summary>
         /// 
         /// </summary>
-        public string OutputPath { get; internal set; }
-        
+        public string OutputPath { get; internal set; } = "";
+
         /// <summary>
         /// 
         /// </summary>
-        public string DefineConstants { get; internal set; }
-        
+        public string DefineConstants { get; internal set; } = "";
+
         /// <summary>
         /// 
         /// </summary>
-        public string ErrorReport { get; internal set; }
+        public string ErrorReport { get; internal set; } = "";
 
         /// <summary>
         /// 
@@ -76,12 +76,12 @@ namespace DotNetProjectParser
         /// <summary>
         /// 
         /// </summary>
-        public string LangVersion { get; internal set; }
+        public string LangVersion { get; internal set; } = "";
 
         /// <summary>
         /// 
         /// </summary>
-        public string CodeAnalysisRuleSet { get; internal set; }
+        public string CodeAnalysisRuleSet { get; internal set; } = "";
         
         /// <summary>
         /// 

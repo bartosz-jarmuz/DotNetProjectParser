@@ -67,6 +67,29 @@ namespace DotNetProjectParser.Tests
 
 
             debugAny.AllProperties.Keys.Count.Should().Be(10);
+
+
+            var releaseX64 = project.PropertyGroups.Single(x => x.Condition.Platform == Platform.x64 && x.Condition.Configuration == "Release");
+            releaseX64.Should().NotBeNull();
+            releaseX64.Condition.Expression.Should().Be("'$(Configuration)|$(Platform)' == 'Release|x64'");
+            releaseX64.Condition.Platform.Should().Be(Platform.x64);
+
+            releaseX64.PlatformTarget.Should().Be(Platform.x64);
+            releaseX64.OutputPath.Should().Be(@"bin\x64\Release\");
+            releaseX64.DebugSymbols.Should().Be(false);
+            releaseX64.DebugType.Should().Be("pdbonly");
+            releaseX64.Optimize.Should().Be(true);
+            releaseX64.DefineConstants.Should().Be("TRACE");
+            releaseX64.LangVersion.Should().Be("7.3");
+            releaseX64.ErrorReport.Should().Be("prompt");
+            releaseX64.WarningLevel.Should().Be(4);
+            releaseX64.CodeAnalysisRuleSet.Should().Be("MinimumRecommendedRules.ruleset");
+            releaseX64.AllowUnsafeBlocks.Should().Be(true);
+            releaseX64.TreatWarningsAsErrors.Should().Be(false);
+            releaseX64.Prefer32Bit.Should().Be(true);
+            releaseX64.WarningsAsErrors.Should().Be("");
+
+            releaseX64.AllProperties.Keys.Count.Should().Be(10);
         }
 
 
@@ -119,6 +142,7 @@ namespace DotNetProjectParser.Tests
 
 
             debugAny.AllProperties.Keys.Count.Should().Be(10);
+
 
         }
 

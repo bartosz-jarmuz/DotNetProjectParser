@@ -20,18 +20,12 @@ namespace DotNetProjectParser
             return targetElement?.Value;
         }
 
-        public static T GetValueByLocalName<T>(this XElement element, string localName)
-        {
-            var target =  element?.Elements().FirstOrDefault(x => x.Name.LocalName == localName);
-            return GetValue<T>(target);
-        }
-
-        public static T GetValue<T>(this XElement element)
+        public static T GetValue<T>(this XElement element, T defaultValue)
         {
             string stringifiedValue = element?.Value;
-            if (string.IsNullOrEmpty(stringifiedValue))
+            if (stringifiedValue == null)
             {
-                return default(T);
+                return defaultValue;
             }
             try
             {

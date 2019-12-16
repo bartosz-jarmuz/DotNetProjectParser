@@ -37,6 +37,7 @@ namespace DotNetProjectParser.Readers
             public const string TreatWarningsAsErrors = "TreatWarningsAsErrors";
             public const string WarningsAsErrors = "WarningsAsErrors";
             public const string DebugType = "DebugType";
+            public const string CodeAnalysisRuleSet = "CodeAnalysisRuleSet";
         }
 
         private static class XmlPaths
@@ -96,59 +97,10 @@ namespace DotNetProjectParser.Readers
             foreach (XElement propertiesSection in xml.Root.Elements().Where(x=>x.Name.LocalName == XmlNames.PropertyGroup && x.Attribute(XmlNames.Condition) != null))
             {
                 var propertyGroup = new PropertyGroup();
-                var conditionAttribute = propertiesSection.Attribute(XmlNames.Condition);
-                if (conditionAttribute != null)
-                {
-                    propertyGroup.Condition = ConditionParser.Parse(conditionAttribute);
-                }
+                SetDefaults(propertyGroup);
+                SetCondition(propertiesSection, propertyGroup);
 
-                foreach (XElement property in propertiesSection.Elements())
-                {
-                    UpdateAllPropertiesDictionary(propertyGroup, property);
-                   
-                    switch (property.Name.LocalName)
-                    {
-                        case XmlNames.AllowUnsafeBlocks:
-                            propertyGroup.AllowUnsafeBlocks = property.GetValue<bool>();
-                            break;
-                        case XmlNames.DebugType:
-                            propertyGroup.DebugType = property.Value;
-                            break;
-                        case XmlNames.DebugSymbols:
-                            propertyGroup.DebugSymbols = property.GetValue<bool>();
-                            break;
-                        case XmlNames.DefineConstants:
-                            propertyGroup.DefineConstants =property.Value;
-                            break;
-                        case XmlNames.ErrorReport:
-                            propertyGroup.ErrorReport = property.Value;
-                            break;
-                        case XmlNames.LangVersion:
-                            propertyGroup.LangVersion = property.Value;
-                            break;
-                        case XmlNames.Optimize:
-                            propertyGroup.Optimize = property.GetValue<bool>();
-                            break;
-                        case XmlNames.OutputPath:
-                            propertyGroup.OutputPath = property.Value;
-                            break;
-                        case XmlNames.PlatformTarget:
-                            propertyGroup.PlatformTarget = ConditionParser.ParsePlatform(property.Value);
-                            break;
-                        case XmlNames.Prefer32Bit:
-                            propertyGroup.Prefer32Bit = property.GetValue<bool>();
-                            break;
-                        case XmlNames.TreatWarningsAsErrors:
-                            propertyGroup.TreatWarningsAsErrors = property.GetValue<bool>();
-                            break;
-                        case XmlNames.WarningsAsErrors:
-                            propertyGroup.WarningsAsErrors = property.Value;
-                            break;
-                        case XmlNames.WarningLevel:
-                            propertyGroup.WarningLevel = property.GetValue<int>();
-                            break;
-                    }
-                }
+                SetProperties(propertiesSection, propertyGroup);
 
                 if (propertyGroup.PlatformTarget == Platform.Unspecified)
                 {
@@ -160,8 +112,74 @@ namespace DotNetProjectParser.Readers
             return list;
         }
 
-        
-      
+        private static void SetProperties(XElement propertiesSection, PropertyGroup propertyGroup)
+        {
+            foreach (XElement property in propertiesSection.Elements())
+            {
+                UpdateAllPropertiesDictionary(propertyGroup, property);
+
+                switch (property.Name.LocalName)
+                {
+                    case XmlNames.AllowUnsafeBlocks:
+                        propertyGroup.AllowUnsafeBlocks = property.GetValue<bool>(false);
+                        break;
+                    case XmlNames.CodeAnalysisRuleSet:
+                        propertyGroup.CodeAnalysisRuleSet = property.Value;
+                        break;
+                    case XmlNames.DebugType:
+                        propertyGroup.DebugType = property.Value;
+                        break;
+                    case XmlNames.DebugSymbols:
+                        propertyGroup.DebugSymbols = property.GetValue<bool>(false);
+                        break;
+                    case XmlNames.DefineConstants:
+                        propertyGroup.DefineConstants = property.Value;
+                        break;
+                    case XmlNames.ErrorReport:
+                        propertyGroup.ErrorReport = property.Value;
+                        break;
+                    case XmlNames.LangVersion:
+                        propertyGroup.LangVersion = property.Value;
+                        break;
+                    case XmlNames.Optimize:
+                        propertyGroup.Optimize = property.GetValue<bool>(false);
+                        break;
+                    case XmlNames.OutputPath:
+                        propertyGroup.OutputPath = property.Value;
+                        break;
+                    case XmlNames.PlatformTarget:
+                        propertyGroup.PlatformTarget = ConditionParser.ParsePlatform(property.Value);
+                        break;
+                    case XmlNames.Prefer32Bit:
+                        propertyGroup.Prefer32Bit = property.GetValue<bool>(false);
+                        break;
+                    case XmlNames.TreatWarningsAsErrors:
+                        propertyGroup.TreatWarningsAsErrors = property.GetValue<bool>(false);
+                        break;
+                    case XmlNames.WarningsAsErrors:
+                        propertyGroup.WarningsAsErrors = property.Value;
+                        break;
+                    case XmlNames.WarningLevel:
+                        propertyGroup.WarningLevel = property.GetValue<int>(4);
+                        break;
+                }
+            }
+        }
+
+        private static void SetCondition(XElement propertiesSection, PropertyGroup propertyGroup)
+        {
+            var conditionAttribute = propertiesSection.Attribute(XmlNames.Condition);
+            if (conditionAttribute != null)
+            {
+                propertyGroup.Condition = ConditionParser.Parse(conditionAttribute);
+            }
+        }
+
+        private static void SetDefaults(PropertyGroup propertyGroup)
+        {
+            propertyGroup.WarningLevel = 4;
+        }
+
 
         private static void UpdateAllPropertiesDictionary(PropertyGroup propertyGroup, XElement property)
         {
