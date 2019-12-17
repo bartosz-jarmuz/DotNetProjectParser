@@ -15,6 +15,8 @@
     <PackageTags>.net dotnet project parser core framework standard xml csproj reader</PackageTags>
     <Configurations>Debug;Release;TestConfiguration</Configurations>
     <Platforms>AnyCPU;x64</Platforms>
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,6 +29,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <DocumentationFile>C:\Users\bjarmuz\source\repos\DotNetProjectParser\src\DotNetProjectParser\DotNetProjectParser.xml</DocumentationFile>
+    <NoWarn>1701;1702;NU5048</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

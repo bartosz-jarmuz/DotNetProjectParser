@@ -17,13 +17,24 @@ namespace DotNetProjectParser.Tests
     {
 
         [Test]
-        public void TestProjectLoad_AllMethodsReturnEquivalentResult()
+        public void TestParse_NetFramework_ResultOk()
         {
             XAttribute attribute = new XAttribute("Condition", " '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ");
 
             var condition = ConditionParser.Parse(attribute);
             condition.Expression.Should().Be("'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'");
             condition.Platform.Should().Be(Platform.AnyCpu);
+            condition.Configuration.Should().Be("Debug");
+
+        } 
+        [Test]
+        public void TestParse_NetCore_ResultOk()
+        {
+            XAttribute attribute = new XAttribute("Condition", "'$(Configuration)|$(Platform)'=='Debug|x64'");
+
+            var condition = ConditionParser.Parse(attribute);
+            condition.Expression.Should().Be("'$(Configuration)|$(Platform)'=='Debug|x64'");
+            condition.Platform.Should().Be(Platform.x64);
             condition.Configuration.Should().Be("Debug");
 
         }

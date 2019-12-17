@@ -7,15 +7,22 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningsAsErrors>NU1605;CS1591</WarningsAsErrors>
-  </PropertyGroup>
+
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningsAsErrors>NU1605;CS1591</WarningsAsErrors>
+    <WarningsAsErrors>CS1591</WarningsAsErrors>
+    <DocumentationFile>C:\Users\bjarmuz\source\repos\DotNetProjectParser\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetCore.Console\DotNetProjectParser.SampleProjects.NetCore.Console.xml</DocumentationFile>
+    <OutputPath>out\debug</OutputPath>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>true</Prefer32Bit>
+    <WarningLevel>2</WarningLevel>
   </PropertyGroup>
+
 
   <ItemGroup>
     <Compile Remove="OtherClass.cs" />
@@ -23,6 +30,13 @@
 
   <ItemGroup>
     <Content Include="OtherClass.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

@@ -36,11 +36,6 @@ namespace DotNetProjectParser
         /// <summary>
         /// 
         /// </summary>
-        public bool DebugSymbols { get; internal set; }
-        
-        /// <summary>
-        /// 
-        /// </summary>
         public bool Optimize{ get; internal set; }
        
         /// <summary>
@@ -48,10 +43,6 @@ namespace DotNetProjectParser
         /// </summary>
         public bool AllowUnsafeBlocks { get; internal set; }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        public string DebugType { get; internal set; } = "";
 
         /// <summary>
         /// 
@@ -63,26 +54,12 @@ namespace DotNetProjectParser
         /// </summary>
         public string DefineConstants { get; internal set; } = "";
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ErrorReport { get; internal set; } = "";
 
         /// <summary>
         /// 
         /// </summary>
         public int WarningLevel { get; internal set; }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public string LangVersion { get; internal set; } = "";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string CodeAnalysisRuleSet { get; internal set; } = "";
-        
+     
         /// <summary>
         /// 
         /// </summary>

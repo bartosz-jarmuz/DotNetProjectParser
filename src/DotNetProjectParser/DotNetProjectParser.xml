@@ -85,6 +85,11 @@
             A model of the Project object
             </summary>
         </member>
+        <member name="M:DotNetProjectParser.Project.#ctor">
+            <summary>
+            Creates a new instance
+            </summary>
+        </member>
         <member name="M:DotNetProjectParser.Project.Construct(System.IO.FileInfo)">
             <summary>
             Constructs a new instance
@@ -142,6 +147,12 @@
             
             </summary>
         </member>
+        <member name="M:DotNetProjectParser.Project.GetCompileItems">
+            <summary>
+            Gets the items that are set as 'compile'
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:DotNetProjectParser.ProjectItem">
             <summary>
             An item of the project
@@ -150,6 +161,11 @@
         <member name="P:DotNetProjectParser.ProjectItem.Project">
             <summary>
             The project which contains the item
+            </summary>
+        </member>
+        <member name="P:DotNetProjectParser.ProjectItem.ItemName">
+            <summary>
+            Name of item
             </summary>
         </member>
         <member name="P:DotNetProjectParser.ProjectItem.ItemType">
@@ -202,22 +218,12 @@
             
             </summary>
         </member>
-        <member name="P:DotNetProjectParser.PropertyGroup.DebugSymbols">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:DotNetProjectParser.PropertyGroup.Optimize">
             <summary>
             
             </summary>
         </member>
         <member name="P:DotNetProjectParser.PropertyGroup.AllowUnsafeBlocks">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:DotNetProjectParser.PropertyGroup.DebugType">
             <summary>
             
             </summary>
@@ -232,22 +238,7 @@
             
             </summary>
         </member>
-        <member name="P:DotNetProjectParser.PropertyGroup.ErrorReport">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:DotNetProjectParser.PropertyGroup.WarningLevel">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:DotNetProjectParser.PropertyGroup.LangVersion">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:DotNetProjectParser.PropertyGroup.CodeAnalysisRuleSet">
             <summary>
             
             </summary>

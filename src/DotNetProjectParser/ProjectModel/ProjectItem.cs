@@ -14,6 +14,11 @@ namespace DotNetProjectParser
         public Project Project { get; internal set; }
 
         /// <summary>
+        /// Name of item
+        /// </summary>
+        public string ItemName { get; internal set; }
+
+        /// <summary>
         /// Type of item (Compile, Reference, EmbeddedResource etc)
         /// </summary>
         public string ItemType { get; internal set; }

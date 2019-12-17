@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace DotNetProjectParser
@@ -10,6 +11,14 @@ namespace DotNetProjectParser
     /// </summary>
     public class Project
     {
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
+        public Project()
+        {
+            this.compileItems = new Lazy<List<ProjectItem>>(()=>this.Items.Where(x => x.ItemType == "Compile").ToList());
+        }
+
         /// <summary>
         /// Constructs a new instance
         /// </summary>
@@ -68,6 +77,18 @@ namespace DotNetProjectParser
         /// 
         /// </summary>
         public IReadOnlyCollection<PropertyGroup> PropertyGroups { get; internal set; } = new List<PropertyGroup>();
+
+        private readonly Lazy<List<ProjectItem>> compileItems;
+
+        /// <summary>
+        /// Gets the items that are set as 'compile'
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ProjectItem> GetCompileItems()
+        {
+            return this.compileItems.Value;
+        }
+
 
     }
 }

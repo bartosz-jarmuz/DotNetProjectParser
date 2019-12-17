@@ -25,27 +25,15 @@ namespace DotNetProjectParser.Readers
             public static string Include { get; }= "Include";
             public static string CopyToOutputDirectory { get; }= "CopyToOutputDirectory";
             public const string PlatformTarget = "PlatformTarget";
-            public const string DebugSymbols = "DebugSymbols";
             public const string Optimize = "Optimize";
             public const string OutputPath = "OutputPath";
             public const string DefineConstants = "DefineConstants";
-            public const string ErrorReport = "ErrorReport";
-            public const string WarningLevel = "WarningLevel";
             public const string AllowUnsafeBlocks = "AllowUnsafeBlocks";
             public const string Prefer32Bit = "Prefer32Bit";
-            public const string LangVersion = "LangVersion";
             public const string TreatWarningsAsErrors = "TreatWarningsAsErrors";
             public const string WarningsAsErrors = "WarningsAsErrors";
             public const string DebugType = "DebugType";
-            public const string CodeAnalysisRuleSet = "CodeAnalysisRuleSet";
         }
-
-        private static class XmlPaths
-        {
-            public static string TreatWarningsAsErrors { get; }= "//x:PropertyGroup/x:TreatWarningsAsErrors";
-            public static string WarningsAsErrors { get; }= "//x:PropertyGroup/x:WarningsAsErrors";
-        }
-
 
         public Project ReadFile(FileInfo projectFile, XDocument projectXml)
         {
@@ -97,8 +85,8 @@ namespace DotNetProjectParser.Readers
             foreach (XElement propertiesSection in xml.Root.Elements().Where(x=>x.Name.LocalName == XmlNames.PropertyGroup && x.Attribute(XmlNames.Condition) != null))
             {
                 var propertyGroup = new PropertyGroup();
-                SetDefaults(propertyGroup);
                 SetCondition(propertiesSection, propertyGroup);
+                SetDefaults(propertyGroup, propertyGroup.Condition.Configuration);
 
                 SetProperties(propertiesSection, propertyGroup);
 
@@ -123,23 +111,8 @@ namespace DotNetProjectParser.Readers
                     case XmlNames.AllowUnsafeBlocks:
                         propertyGroup.AllowUnsafeBlocks = property.GetValue<bool>(false);
                         break;
-                    case XmlNames.CodeAnalysisRuleSet:
-                        propertyGroup.CodeAnalysisRuleSet = property.Value;
-                        break;
-                    case XmlNames.DebugType:
-                        propertyGroup.DebugType = property.Value;
-                        break;
-                    case XmlNames.DebugSymbols:
-                        propertyGroup.DebugSymbols = property.GetValue<bool>(false);
-                        break;
                     case XmlNames.DefineConstants:
                         propertyGroup.DefineConstants = property.Value;
-                        break;
-                    case XmlNames.ErrorReport:
-                        propertyGroup.ErrorReport = property.Value;
-                        break;
-                    case XmlNames.LangVersion:
-                        propertyGroup.LangVersion = property.Value;
                         break;
                     case XmlNames.Optimize:
                         propertyGroup.Optimize = property.GetValue<bool>(false);
@@ -159,9 +132,6 @@ namespace DotNetProjectParser.Readers
                     case XmlNames.WarningsAsErrors:
                         propertyGroup.WarningsAsErrors = property.Value;
                         break;
-                    case XmlNames.WarningLevel:
-                        propertyGroup.WarningLevel = property.GetValue<int>(4);
-                        break;
                 }
             }
         }
@@ -175,9 +145,17 @@ namespace DotNetProjectParser.Readers
             }
         }
 
-        private static void SetDefaults(PropertyGroup propertyGroup)
+        private static void SetDefaults(PropertyGroup propertyGroup, string configurationName)
         {
             propertyGroup.WarningLevel = 4;
+            if (configurationName == "Debug")
+            {
+                propertyGroup.DefineConstants = "DEBUG;TRACE";
+            }
+            else if (configurationName == "Release")
+            {
+                propertyGroup.DefineConstants = "TRACE";
+            }
         }
 
 
@@ -223,6 +201,7 @@ namespace DotNetProjectParser.Readers
                     if (item.Include != null)
                     {
                         item.ResolvedIncludePath = Path.Combine(project.DirectoryPath, item.Include);
+                        item.ItemName = Path.GetFileName(item.Include);
                     }
 
                     item.CopyToOutputDirectory = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == XmlNames.CopyToOutputDirectory)?.Value;

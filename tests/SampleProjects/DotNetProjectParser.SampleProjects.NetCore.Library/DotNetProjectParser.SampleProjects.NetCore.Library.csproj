@@ -6,4 +6,21 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="File3.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ResourceCopyAlways.bmp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="File3.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ResourceCopyAlways.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>
