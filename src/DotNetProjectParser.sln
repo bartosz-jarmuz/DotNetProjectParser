@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetProjectParser.SampleP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetProjectParser.SampleProjects.NetCore.Library", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetCore.Library\DotNetProjectParser.SampleProjects.NetCore.Library.csproj", "{FCD3F258-CA55-4EEB-B24D-8CAE9316E670}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetProjectParser.SampleProjects.NetFramework.WarningsAsErrors", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetFramework.WarningsAsErrors\DotNetProjectParser.SampleProjects.NetFramework.WarningsAsErrors.csproj", "{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,18 @@ Global
 		{FCD3F258-CA55-4EEB-B24D-8CAE9316E670}.TestConfiguration|Any CPU.Build.0 = TestConfiguration|Any CPU
 		{FCD3F258-CA55-4EEB-B24D-8CAE9316E670}.TestConfiguration|x64.ActiveCfg = TestConfiguration|x64
 		{FCD3F258-CA55-4EEB-B24D-8CAE9316E670}.TestConfiguration|x64.Build.0 = TestConfiguration|x64
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.Debug|x64.Build.0 = Debug|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.Release|x64.ActiveCfg = Release|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.Release|x64.Build.0 = Release|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.TestConfiguration|Any CPU.ActiveCfg = Release|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.TestConfiguration|Any CPU.Build.0 = Release|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.TestConfiguration|x64.ActiveCfg = Release|Any CPU
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.TestConfiguration|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +147,7 @@ Global
 		{181DCC96-8B7C-43AF-8805-F9BE414F8F27} = {229DC5C1-5C35-4CFD-8291-90A7E44799EC}
 		{65CB8F41-0C51-4E3F-8368-F166D9383680} = {229DC5C1-5C35-4CFD-8291-90A7E44799EC}
 		{FCD3F258-CA55-4EEB-B24D-8CAE9316E670} = {229DC5C1-5C35-4CFD-8291-90A7E44799EC}
+		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C} = {229DC5C1-5C35-4CFD-8291-90A7E44799EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1B988EB7-FD4C-48D4-BD15-07300084C459}

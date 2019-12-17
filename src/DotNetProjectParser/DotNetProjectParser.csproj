@@ -15,8 +15,9 @@
     <PackageTags>.net dotnet project parser core framework standard xml csproj reader</PackageTags>
     <Configurations>Debug;Release;TestConfiguration</Configurations>
     <Platforms>AnyCPU;x64</Platforms>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

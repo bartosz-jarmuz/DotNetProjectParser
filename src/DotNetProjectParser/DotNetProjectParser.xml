@@ -153,6 +153,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:DotNetProjectParser.Project.IsTreatingWarningsAsErrorsInAllConfigurations">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:DotNetProjectParser.ProjectItem">
             <summary>
             An item of the project

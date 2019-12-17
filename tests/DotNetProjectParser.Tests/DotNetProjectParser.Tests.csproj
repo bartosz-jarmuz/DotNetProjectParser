@@ -78,6 +78,7 @@
     <Compile Include="ConditionParserTests.cs" />
     <Compile Include="InstantiationTests.cs" />
     <Compile Include="NetCore_Console_Tests.cs" />
+    <Compile Include="TreatAllWarningsAsErrorsTests.cs" />
     <Compile Include="NetFramework_Library_Tests.cs" />
     <Compile Include="NetCore_Library_Tests.cs" />
     <Compile Include="NetFramework_Console_Tests.cs" />

@@ -89,6 +89,20 @@ namespace DotNetProjectParser
             return this.compileItems.Value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool IsTreatingWarningsAsErrorsInAllConfigurations()
+        {
+            //ensure that all configs (build, debug) have the proper setting
+            if (this.PropertyGroups.Any())
+            {
+                return this.PropertyGroups.All(x => x.TreatWarningsAsErrors);
+            }
+            //if its not explicitly set to true, then its false
+            return false;
+        }
 
     }
 }
