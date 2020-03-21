@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.87
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetProjectParser", "DotNetProjectParser\DotNetProjectParser.csproj", "{FC89DDCE-CEC1-4DCD-8204-ADD2C9E535FC}"
 EndProject
@@ -23,11 +23,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_Solution
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetProjectParser.SampleProjects.NetFramework.Library", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetFramework.Library\DotNetProjectParser.SampleProjects.NetFramework.Library.csproj", "{181DCC96-8B7C-43AF-8805-F9BE414F8F27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetProjectParser.SampleProjects.NetStandard.Library", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetStandard.Library\DotNetProjectParser.SampleProjects.NetStandard.Library.csproj", "{65CB8F41-0C51-4E3F-8368-F166D9383680}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetProjectParser.SampleProjects.NetStandard.Library", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetStandard.Library\DotNetProjectParser.SampleProjects.NetStandard.Library.csproj", "{65CB8F41-0C51-4E3F-8368-F166D9383680}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetProjectParser.SampleProjects.NetCore.Library", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetCore.Library\DotNetProjectParser.SampleProjects.NetCore.Library.csproj", "{FCD3F258-CA55-4EEB-B24D-8CAE9316E670}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetProjectParser.SampleProjects.NetCore.Library", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetCore.Library\DotNetProjectParser.SampleProjects.NetCore.Library.csproj", "{FCD3F258-CA55-4EEB-B24D-8CAE9316E670}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetProjectParser.SampleProjects.NetFramework.WarningsAsErrors", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetFramework.WarningsAsErrors\DotNetProjectParser.SampleProjects.NetFramework.WarningsAsErrors.csproj", "{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DotNetProjectParser.SampleProjects.NetFramework.Db", "..\tests\SampleProjects\DotNetProjectParser.SampleProjects.NetFramework.Db\DotNetProjectParser.SampleProjects.NetFramework.Db.sqlproj", "{2B122624-465D-4329-8609-BD470C2729EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +137,24 @@ Global
 		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.TestConfiguration|Any CPU.Build.0 = Release|Any CPU
 		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.TestConfiguration|x64.ActiveCfg = Release|Any CPU
 		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C}.TestConfiguration|x64.Build.0 = Release|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Debug|x64.Build.0 = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Release|x64.ActiveCfg = Release|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Release|x64.Build.0 = Release|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.Release|x64.Deploy.0 = Release|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.TestConfiguration|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.TestConfiguration|Any CPU.Build.0 = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.TestConfiguration|Any CPU.Deploy.0 = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.TestConfiguration|x64.ActiveCfg = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.TestConfiguration|x64.Build.0 = Debug|Any CPU
+		{2B122624-465D-4329-8609-BD470C2729EC}.TestConfiguration|x64.Deploy.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,6 +168,7 @@ Global
 		{65CB8F41-0C51-4E3F-8368-F166D9383680} = {229DC5C1-5C35-4CFD-8291-90A7E44799EC}
 		{FCD3F258-CA55-4EEB-B24D-8CAE9316E670} = {229DC5C1-5C35-4CFD-8291-90A7E44799EC}
 		{F9B6A02B-41B5-42AD-99B0-6146FA673B8C} = {229DC5C1-5C35-4CFD-8291-90A7E44799EC}
+		{2B122624-465D-4329-8609-BD470C2729EC} = {229DC5C1-5C35-4CFD-8291-90A7E44799EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1B988EB7-FD4C-48D4-BD15-07300084C459}
